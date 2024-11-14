@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DU_CertificateApp.Manager\DU_CertificateApp.Manager.csproj" />
+    <ProjectReference Include="..\DU_CertificateApp.Model\DU_CertificateApp.Model.csproj" />
+    <ProjectReference Include="..\DU_CertificateApp.Repository\DU_CertificateApp.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

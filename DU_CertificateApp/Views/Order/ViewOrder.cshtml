@@ -1,0 +1,50 @@
+﻿@using DU_CertificateApp.Models;
+@model OrderViewModel;
+@{
+    ViewData["Title"] = "ViewOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div><h1>Order Detail</h1></div>
+<hr />
+<a asp-controller="Order" asp-action="Update" asp-route-id="@Model.ID" class="btn btn-outline-primary" style="position: fixed; top: 80px; right: 155px; z-index: 9999;">Update</a>
+<a asp-controller="Order" asp-action="Index" class="btn btn-outline-secondary" style="position: fixed; top: 80px; right: 50px; z-index: 9999;">Order List</a>
+
+<div>
+    <h3>Student details</h3>
+    <div>
+        <div><b>Student Name: </b>@ViewBag.Student.Name</div>
+        <div><b>Batch: </b>@ViewBag.Student.Batch</div>
+        <div><b>Registration: </b>@ViewBag.Student.Registration</div>
+        <div><b>Exam-Roll: </b>@ViewBag.Student.ExamRoll</div>
+    </div><hr /><br />
+
+    <h3>Order Information</h3>
+    <div>
+        <div><b>Order: </b>Order-@Model.ID</div>
+        <div><b>Price: </b>@Model.Price</div>
+        <div><b>Status: </b>@Model.Status</div><hr /><br />
+        <h3>Certificate</h3>
+        
+        <table class="table table-striped nowrap" style="width:50%">
+            <thead>
+                <tr>
+                    <th>Certificate</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (CertificateViewModel i in ViewBag.Certificates)
+            {
+                <tr>
+                    <td>@i.Name</td>
+                    <td>@i.Price</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        
+        
+    </div>
+</div>
+

@@ -1,0 +1,45 @@
+﻿@using DU_CertificateApp.Models;
+@model OrderViewModel
+@{
+    ViewData["Title"] = "ViewOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    bool flag = true;
+}
+
+<div>Order Detail</div>
+<div>
+    <div><b>Order ID: </b> REQ-@Model.ID</div>
+    <div><b>Cerificate: </b>
+        @foreach(CertificateViewModel item in ViewBag.Certificates)
+        {
+            if(!flag)
+            {
+                <span>,</span>
+            }
+            <span>@item.Name</span>  
+            flag = false;
+        }
+    </div>
+    <div><b>Price: </b> @Model.Price</div>
+    <div><b>Student Name: </b> @ViewBag.Student.Name</div>
+    <div><b>Registration: </b> @ViewBag.Student.Registration</div>
+    <div><b>Exam Roll: </b> @ViewBag.Student.ExamRoll</div>
+    <div><b>Batch No: </b> @ViewBag.Student.Batch</div>
+    <div><b>Currenct Status: </b>@Model.Status</div>
+    @if (Model.Status == "Pending")
+    {
+        <a asp-controller="Order" asp-action="Proceed" asp-route-id="@Model.ID" class="btn btn-success text-black">Accept</a>
+    }
+    else if (Model.Status == "Accept")
+    {
+        <a asp-controller="Order" asp-action="Proceed" asp-route-id="@Model.ID" class="btn btn-success text-black">Approve</a>
+    }
+    else if (Model.Status == "Approve")
+    {
+        <a asp-controller="Order" asp-action="Proceed" asp-route-id="@Model.ID" class="btn btn-success text-black">Complete</a>
+    }
+    <a asp-controller="Order" asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+

@@ -1,0 +1,64 @@
+﻿@using DU_CertificateApp.Models;
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int total = 0;
+}
+@if(ViewBag.ErrorMessage!=null)
+{
+    <div class="text-danger">@ViewBag.ErrorMessage!!!</div>
+}
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h2 class="text-center">Update Order</h2><hr />
+    </div>
+    <a asp-controller="Order" asp-action="Index" class="btn btn-outline-secondary">Order List</a><br /><br />   
+    <div>
+        <table id="example" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Certificate</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CertificateViewModel item in ViewBag.ExistCertificates)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        @{total += item.Price;}
+                        <td>
+                            <a asp-action="RemoveFromUpdate" asp-route-id="@item.ID" asp-route-orderId="@ViewBag.existsOrder.ID" asp-controller="Order" class="text-decoration-none"><i class="fa fa-trash-o" aria-hidden="true"></i>Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />  
+        <h3>Total Price: @total</h3><br />
+    </div>
+    
+    <hr />
+    <h4>Available Certificate</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-body">
+                <div class="d-flex flex-wrap justify-content-center">
+                    @foreach (CertificateViewModel item in ViewBag.Certificates)
+                    {
+                        <div style="text-align:center;padding: 1%">
+                            <div class="p-2 border border-2"><img height="100px" width="80px" src="~/certification.png" /></div>
+                            <div class="p-2">@item.Name</div>
+                            <input type="hidden" name="id-@item.ID" value="@item.ID" />
+                            <a asp-controller="Order" asp-action="AddOnUpdate" asp-route-id="@item.ID" asp-route-orderId="@ViewBag.existsOrder.ID" class="btn btn-outline-primary text-black">Add to Order</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

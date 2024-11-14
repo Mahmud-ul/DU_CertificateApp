@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Http
+@using DU_CertificateApp.Model.Models;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var type = Context.Session.GetString("Membership");
+}
+<h1>Order</h1>
+<hr />
+<a asp-action="Create" class="btn btn-outline-success">Create</a>
+<br />
+<br />
+
+<div>
+    <table class="table table-striped nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Order No.</th>
+                <th>Price</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Order item in ViewBag.Orders)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Order" asp-action="ViewOrder" asp-route-id="@item.ID" class="btn btn-outline-primary text-black">Order-@item.ID</a>
+                    </td>
+                    <td>@item.Price</td>
+                    <td>@item.OrderedDate</td>
+                    @if(item.Status == "Pending")
+                    {
+                        <td>Pending</td>
+                        if (type == "Admin" || type == "Student")
+                        {
+                            <td>
+                                <a asp-controller="Order" asp-action="Update" asp-route-id="@item.ID" class="btn btn-outline-warning text-black"><i class="fa fa-pencil"></i> Update</a>
+                                <a asp-controller="Order" asp-action="Proceed" asp-route-id="@item.ID" class="btn btn-outline-success text-black">Accept</a>
+                            </td>
+                        }
+
+                    }
+                    else if (item.Status == "Accept")
+                    {
+                        if (type == "Student")
+                        {
+                            <td>Accepted</td>
+                        }                       
+                        else if (type == "Admin" || type == "Check1")
+                        {
+                            <td>Accepted</td>
+                            <td>
+                                <a asp-controller="Order" asp-action="Proceed" asp-route-id="@item.ID" class="btn btn-outline-success text-black">Approve</a>
+                            </td>
+                        }
+                        
+                    }
+                    else if (item.Status == "Approve")
+                    {
+                        if (type == "Student")
+                        {
+                            <td>In-Progress</td>
+                        }                        
+                        if (type == "Admin" || type == "Check2")
+                        {
+                            <td>Approved</td>
+                            <td>
+                                <a asp-controller="Order" asp-action="Proceed" asp-route-id="@item.ID" class="btn btn-outline-success text-black">Complete</a>
+                            </td>
+                        }                   
+                    }
+                    else if (item.Status == "Complete")
+                    {
+                        <td>Complete</td>
+                        if (type == "Admin" || type == "Student")
+                        {
+                            <td>
+                                <a asp-controller="Order" asp-action="DownloadCertificate" asp-route-id="@item.ID" class="btn btn-outline-success text-black">Download Certificate</a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

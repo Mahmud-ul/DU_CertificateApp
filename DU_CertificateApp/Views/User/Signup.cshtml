@@ -1,0 +1,107 @@
+﻿@using DU_CertificateApp.Models;
+@model StudentViewModel
+@{
+    ViewData["Title"] = "Signup";
+    Layout = "~/Views/Shared/_userLayout.cshtml";
+}
+
+<h2 style="text-align:center; padding-top: 2%;">SignUp</h2>
+<hr />
+
+<div>
+    <form method="post" asp-controller="User" asp-action="Signup">
+        <div style="padding-left:30%;padding-top:2%;">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input type="text" class="form-control col-md-5" asp-for="Name" required="required" placeholder="Enter Student Name"><br>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DepartmentID">Department</label>
+                    <select class="form-control col-md-5" asp-for="DepartmentID">
+                        <option value="">Choose Department</option>
+                        @foreach (DepartmentViewModel item in ViewBag.Departments)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                    @if (ViewBag.Department != null)
+                    {
+                        <span style="color:red;">@ViewBag.Department</span>
+                    }
+                </div><br />
+
+                <div class="form-group">
+                    <label asp-for="Batch">Batch</label>
+                    <input type="text" class="form-control col-md-5" asp-for="Batch" required="required" placeholder="Enter Student Batch">
+                    @if (ViewBag.Batch != null)
+                    {
+                        <span style="color:red;">@ViewBag.Batch</span>
+                    }
+                </div><br>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input type="text" class="form-control col-md-5" asp-for="Email" required="required" placeholder="Enter Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    @if (ViewBag.Email != null)
+                    {
+                        <span style="color:red;">@ViewBag.Email</span>
+                    }
+                </div><br>
+
+                <div class="form-group">
+                    <label asp-for="Phone">Phone</label>
+                    <input type="text" class="form-control col-md-5" asp-for="Phone" required="required" placeholder="Enter Phone">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                    @if (ViewBag.Phone != null)
+                    {
+                        <span style="color:red;">@ViewBag.Phone</span>
+                    }
+                </div><br>
+
+                <div class="form-group">
+                    <label asp-for="Registration">Registration No.</label>
+                    <input type="text" class="form-control col-md-5" asp-for="Registration" required="required" placeholder="Enter Registration number">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    @if (ViewBag.Registration != null)
+                    {
+                        <span style="color:red;">@ViewBag.Registration</span>
+                    }
+                </div><br>
+
+                <div class="form-group">
+                    <label asp-for="ExamRoll">Exam Roll</label>
+                    <input type="text" class="form-control col-md-5" asp-for="ExamRoll" required="required" placeholder="Enter ExamRoll">
+                    @if (ViewBag.ExamRoll != null)
+                    {
+                        <span style="color:red;">@ViewBag.ExamRoll</span>
+                    }
+                </div><br>
+
+                <div class="form-group">
+                    <label asp-for="Password">Password</label>
+                    <input type="password" class="form-control col-md-5" asp-for="Password" required="required" placeholder="Enter Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div><br>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control col-md-5" required="required" placeholder="Confirm Password" />
+                    @if (ViewBag.PasswordMismatched != null)
+                    {
+                        <span style="color:red;">@ViewBag.PasswordMismatched</span>
+                    }
+                </div><br />
+
+                <div>
+                    <label class="col-md-3"></label>
+                    <button type="submit" class="btn btn-outline-success">Signup</button> &nbsp;&nbsp;
+                    Already User? <a asp-controller="User" asp-action="Login" style="text-decoration:none; color:blue">Login</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

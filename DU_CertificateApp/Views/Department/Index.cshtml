@@ -1,0 +1,38 @@
+﻿@using DU_CertificateApp.Models;
+@model IEnumerable<DepartmentViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Department</h1>
+<hr />
+<a asp-action="Create" class="btn btn-outline-success">Create</a>
+<br />
+<br />
+
+<div>
+    <table id="example" class="table table-striped nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DepartmentViewModel item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a asp-controller="Department" asp-action="Update" asp-route-id="@item.ID" class="btn btn-outline-warning text-black"><i class="fa fa-pencil"></i> Update</a> |
+                        <a asp-controller="Department" asp-action="Remove" asp-route-id="@item.ID" class="btn btn-outline-danger" onclick="return confirm('Are you Sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
